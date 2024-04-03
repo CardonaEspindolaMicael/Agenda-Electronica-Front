@@ -1,0 +1,30 @@
+
+.container > *{
+  text-align: center;
+  height: 100%;
+  }
+  header{
+    grid-area: header;
+  }
+  
+  aside{
+    grid-area: sidebar;
+  }
+  
+  section{
+    grid-area: section;
+    background-color: #ffffff;
+  }
+  
+  
+  .container{
+    display: grid;
+    gap: 0px 15px;
+    min-height: 100%; 
+    min-width: 100%;
+    grid-template: 
+    " sidebar header" 70px
+    " sidebar section"auto/250px
+  }
+  
+  

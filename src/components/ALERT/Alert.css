@@ -1,0 +1,15 @@
+
+.alerta-container {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 98%; 
+    padding-top: 60px; 
+    padding-left: 265px; 
+  }
+  
+  .alerta-flotante {
+    position: relative;
+    margin-top: 20px;
+  }

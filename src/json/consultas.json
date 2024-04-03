@@ -1,0 +1,27 @@
+[
+  {
+    "Diagnostico": "Gripe",
+    "ciDoctor": 987654321,
+    "ciPaciente": 12345678
+  },
+  {
+    "Diagnostico": "Hipertensión",
+    "ciDoctor": 876543210,
+    "ciPaciente": 23456789
+  },
+  {
+    "Diagnostico": "Diabetes",
+    "ciDoctor": 765432109,
+    "ciPaciente": 34567890
+  },
+  {
+    "Diagnostico": "Alergia al polen",
+    "ciDoctor": 654321098,
+    "ciPaciente": 45678901
+  },
+  {
+    "Diagnostico": "Apendicitis",
+    "ciDoctor": 543210987,
+    "ciPaciente": 56789012
+  }
+]
