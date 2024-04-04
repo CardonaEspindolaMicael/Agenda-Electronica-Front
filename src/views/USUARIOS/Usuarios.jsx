@@ -13,12 +13,12 @@ const Usuarios = () => {
   const [borro, setBorro] = useState(false);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1); // Añade un estado para la página actual
-  const itemsPerPage = 5; // Define cuántos elementos quieres mostrar por página
+  const itemsPerPage = 4; // Define cuántos elementos quieres mostrar por página
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await ApiRequests.getCommon("api/Usuarios");
+        const response = await ApiRequests.getCommon("/usuario");
         setData(response)
       } catch (error) {
         console.log(error);
@@ -30,7 +30,7 @@ const Usuarios = () => {
 
   let results = [];
 
-  !search ? results = data : results = data.filter((dato) => dato.nombreDoctor.toLowerCase().includes(search.toLocaleLowerCase()))
+  !search ? results = data : results = data.filter((dato) => dato.nombre.toLowerCase().includes(search.toLocaleLowerCase()))
 
   const searcher = (e) => {
     setSearch(e.target.value);
@@ -48,16 +48,21 @@ const Usuarios = () => {
     <div className="row" style={{ margin: '20px 50px 0 50px' }}>
       <legend>Usuarios</legend>
       <hr class="border border-primary border-2 opacity-50"></hr>
-      <SearchFilter value={search} onChange={searcher} placeholder='INGRESE EL NOMBRE DEL DOCTOR ....' />
+      <div className="grid gap-0 row-gap-3">
+  <input className="form-control form-control-lg " id="excel" type="file"/>
+  <NewButton titulo='Nuevo Usuario' navigateTo='nuevoUsuario' />
+</div>
+
+      <SearchFilter value={search} onChange={searcher} placeholder='INGRESE EL NOMBRE DEL USUARIO ....' />
       <table className="table text-start table-dark table-hover mt-3">
         <thead>
           <tr>
-            <th>Usuario</th>
-            <th>Doctor</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Telefono</th>
             <th>Rol</th>
-            <th>Sucursal</th>
             <td>
-            Acciones
+            Cambiar contraseña
             </td>
           </tr>
         </thead>
@@ -65,14 +70,14 @@ const Usuarios = () => {
 
           {
             currentItems.map((Usuario) => (
-              <tr key={Usuario.id}>
-                <td>{Usuario.nombreUsuario}</td>
-                <td>{Usuario.nombreDoctor}</td>
-                <td>{Usuario.nombreRol}</td>
-                <td>{Usuario.nombreSucural}</td>
+              <tr key={Usuario.ci}>
+                <td>{Usuario.nombre}</td>
+                <td>{Usuario.apellidos}</td>
+                <td>{Usuario.telefono}</td>
+                <td>{Usuario.cargo}</td>
                 <td>
                 <IrButton 
-                    navigateTo='restablecerContraceña'
+                    navigateTo='/usuarios/restablecerContraseña'
                     object={Usuario}
                     identificador="1"
                   />

@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import './app.css'
-import Login from "./views/LOGIN/login"
 import Dashboard from "./views/DASHBOARD/dashboard"
 import NotFound from "./components/NOTFOUND/notFound"
 import AuthProvider from "react-auth-kit/AuthProvider"
@@ -38,6 +37,7 @@ import NuevoAntecedentePatologico from "./views/HISTORIAS_CLINICAS/ANTECEDENTES/
 import Usuarios from "./views/USUARIOS/Usuarios"
 import NuevoUsuario from "./views/USUARIOS/NuevoUsuario"
 import RestablecerContraceña from "./views/USUARIOS/RestablecerContraseña"
+import Login from "./views/login/login"
 
 
 
@@ -59,12 +59,12 @@ return <>
     <AuthProvider store={store}>
       <BrowserRouter>
         <Routes>
-           <Route element={<AuthOutlet fallbackPath='/' />}> </Route>
+           <Route element={<AuthOutlet fallbackPath='/' />}> 
            <Route path="/dashboard" element={<Dashboard />} />
-
+           </Route>
            <Route path="/usuarios" element={<Dashboard Contenido={<Usuarios/>}/>} />
            <Route path="/usuarios/nuevoUsuario" element={<Dashboard Contenido={<NuevoUsuario/>}/>} />
-           <Route path="/usuarios/restablecerContraceña" element={<Dashboard Contenido={<RestablecerContraceña/>}/>} />
+           <Route path="/usuarios/restablecerContraseña" element={<Dashboard Contenido={<RestablecerContraceña/>}/>} />
            
            <Route path="/estudiante" element={<Dashboard Contenido={<Paciente/>}/>} />
            <Route path="/estudiante/nuevoEstudiante" element={<Dashboard Contenido={<NuevoPaciente/>}/>} />
@@ -98,7 +98,7 @@ return <>
            <Route path="/historias/informacion/naGinecologico" element={<Dashboard Contenido={<NuevoAntecedenteGinecologico/>}/>} />
            <Route path="/historias/informacion/naOdontologico" element={<Dashboard Contenido={<NuevoAntecedenteOdontologico/>}/>} />
            <Route path="/historias/informacion/naPatologico" element={<Dashboard Contenido={<NuevoAntecedentePatologico/>}/>} />
-              
+   
           
            <Route path="/" element={<Login />} />
           <Route path="*" element={<NotFound />} />

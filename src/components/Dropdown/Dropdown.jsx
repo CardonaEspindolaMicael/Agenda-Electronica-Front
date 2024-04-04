@@ -9,7 +9,7 @@ const Dropdown = ({ title, links,icon}) => {
   return ( 
 <>
   <div className='dropdownContainer'>
-    <li onMouseEnter={() => setIsOpen(!isOpen)} onMouseLeave={()=>setIsOpen(false)}>
+    <div onMouseEnter={() => setIsOpen(!isOpen)} onMouseLeave={()=>setIsOpen(false)}>
     <div className='dropdownContainer__Icon'>
       <img src={icon} />
         <Link className='barra__navegacionRutasAb' to="#">{title}</Link>
@@ -18,13 +18,13 @@ const Dropdown = ({ title, links,icon}) => {
         <img className='flechaCambio' src={desplegar} />
       </div>
       
-      </li>
+      </div>
       <div className={`dropdown-menu${isOpen ? 'activate' : 'inactive'}`} onMouseEnter={()=>setIsOpen(isOpen)} onMouseLeave={()=>setIsOpen(!isOpen)}>
         {links.map((link, index) => (
-          <li key={index} className="dropdown-item" >
+          <div key={index} className="dropdown-item" >
             <img src={link.icon} />
             <Link className='barra__navegacionRutasAb' to={link.path}>{link.text}</Link>
-          </li>
+          </div>
         ))}
       </div>
     </div>

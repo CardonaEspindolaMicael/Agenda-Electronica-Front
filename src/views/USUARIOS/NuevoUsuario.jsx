@@ -1,7 +1,7 @@
 import { useFormik } from 'formik';
 import { ApiRequests } from '../../api/ApiRequests';
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import CancelButton from '../../components/BOTONES/Cancelar';
 import Notification from '../../components/ALERT/Notification';
 
@@ -10,13 +10,11 @@ const NuevoUsuario = () => {
     const [showSuccess, setShowSuccess] = useState(false);
     const [showError, setShowError] = useState(false);
     const [Roles, setRoles] = useState([]);
-    const [Doctores, setDoctores] = useState([]);
-    const location = useLocation();
     const navigate = useNavigate();
 
     const fetchUsers = async (values) => {
         try {
-            await ApiRequests.postCommon('api/Usuarios/Create', values);
+            await ApiRequests.postCommon('/usuario/registro', values);
             setShowSuccess(true);  // Muestra mensaje de éxito
             setTimeout(() => {
                 setShowSuccess(false); // Oculta el mensaje después de 3 segundos
@@ -33,31 +31,25 @@ const NuevoUsuario = () => {
     useEffect(() => {
         const fetchRoles = async () => {
             try {
-                const RolesEncontradas = await ApiRequests.getCommon('api/Roles/');
+                const RolesEncontradas = await ApiRequests.getCommon('/rol');
                 setRoles(RolesEncontradas);
             } catch (error) {
                 console.log(error);
             }
         }
         fetchRoles();
-        const fetchDoctor = async () => {
-            try {
-                const DoctoresEncontradas = await ApiRequests.getCommon('api/Doctores/');
-                setDoctores(DoctoresEncontradas);
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        fetchDoctor()
-
     }, [])
 
     const formik = useFormik({
         initialValues: {
-            nombre: "",
-            contrasena: "",
-            idRol: "",
-            ciDoctor: ""
+            ci:"",
+            nombre:"",
+            apellidos:"",
+            correo:"",
+            sexo:"M",
+            contrasena:"",
+            telefono:"",
+            id_rol:"731c2db4-75a1-4ea4-b9e6-97b3738d1bc1"
         },
         onSubmit: values => {
             fetchUsers(values);
@@ -72,38 +64,16 @@ const NuevoUsuario = () => {
             <hr class="border border-primary border-2 opacity-50"></hr>
 
             <div className="col-6">
-                <label htmlFor="doctor" className="form-label">Doctor</label>
-                <select
-                    id="doctor"
-                    name="doctor"
-                    {...formik.getFieldProps('ciDoctor')}
-                    className="form-control custom-select"
+                <label htmlFor="ci" className="form-label">Carnet</label>
+                <input
+                    id="ci"
+                    name="ci"
+                    type="text"
+                    {...formik.getFieldProps('ci')}
+                    className="form-control "
                     required
-                >
-                    {
-                        Doctores.map((doctor) => (
-                            <option key={doctor.id} value={doctor.documentoIdentidad}>{doctor.nombre}</option>
-                        ))
-                    }
-                </select>
+                />
             </div>
-            <div className="col-6">
-                <label htmlFor="rol" className="form-label">Rol</label>
-                <select
-                    id="rol"
-                    name="rol"
-                    {...formik.getFieldProps('idRol')}
-                    className="form-control custom-select"
-                    required
-                >
-                    {
-                        Roles.map((rol) => (
-                            <option key={rol.id} value={rol.id}>{rol.nombre}</option>
-                        ))
-                    }
-                </select>
-            </div>
-
 
             <div className="col-6">
                 <label htmlFor="nombre" className="form-label">Usuario</label>
@@ -116,9 +86,55 @@ const NuevoUsuario = () => {
                     required
                 />
             </div>
-
             <div className="col-6">
-                <label htmlFor="contrasena" className="form-label">Contraceña</label>
+                <label htmlFor="apellidos" className="form-label">Apellidos</label>
+                <input
+                    id="apellidos"
+                    name="apellidos"
+                    type="text"
+                    {...formik.getFieldProps('apellidos')}
+                    className="form-control "
+                    required
+                />
+            </div>
+            <div className="col-6">
+                <label htmlFor="correo" className="form-label">Correo</label>
+                <input
+                    id="correo"
+                    name="correo"
+                    type="email"
+                    {...formik.getFieldProps('correo')}
+                    className="form-control "
+                    required
+                />
+            </div>
+            <div className="col-6">
+                <label htmlFor="sexo" className="form-label">Sexo</label>
+                <select
+                    id="sexo"
+                    name="sexo"
+                    {...formik.getFieldProps('sexo')}
+                    className="form-control custom-select"
+                    required
+                >
+                    <option value={'M'}>Masculino</option>
+                    <option value={'F'}>Femenino</option>
+
+                </select>
+            </div>
+            <div className="col-6">
+                <label htmlFor="telefono" className="form-label">Telefono</label>
+                <input
+                    id="telefono"
+                    name="telefono"
+                    type="number"
+                    {...formik.getFieldProps('telefono')}
+                    className="form-control "
+                    required
+                />
+            </div>
+            <div className="col-6">
+                <label htmlFor="contrasena" className="form-label">Contraseña</label>
                 <input
                     id="contrasena"
                     name="contrasena"
@@ -128,6 +144,26 @@ const NuevoUsuario = () => {
                     required
                 />
             </div>
+            <div className="col-6">
+                <label htmlFor="id_rol" className="form-label">Rol</label>
+                <select
+                    id="id_rol"
+                    name="id_rol"
+                    {...formik.getFieldProps('id_rol')}
+                    className="form-control custom-select"
+                    required
+                >
+                    {
+                        Roles.map((rol) => (
+                            <option key={rol.id} value={rol.id}>{rol.cargo}</option>
+                        ))
+                    }
+                </select>
+            </div>
+
+
+
+
 
             <div class="row justify-content-evenly">
                 <CancelButton titulo='Cancelar' navigateTo='back' />

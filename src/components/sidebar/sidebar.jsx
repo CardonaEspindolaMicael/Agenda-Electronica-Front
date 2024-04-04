@@ -4,7 +4,6 @@ import useSignOut from 'react-auth-kit/hooks/useSignOut';
 import Dropdown from '../DROPDOWN/Dropdown';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./sidebar.css"
-import teacher from '/teacher.svg'
 import logo from '/logo.png'
 import parent from '/parents.svg'
 import student from '/student.svg'
@@ -20,7 +19,7 @@ import automatic from '/auto.svg'
 
 
 const Sidebar = () => {
-  const role = sessionStorage.getItem('rolUsuario');/*----*/
+  const role = sessionStorage.getItem('cargo');/*----*/
   const signOut = useSignOut();
   const navigate = useNavigate();
 
@@ -30,7 +29,7 @@ const Sidebar = () => {
   ];
   const estudiante = [
 
-    { icon: automatic, path: '#', text: 'Auto Insertar' },
+    { icon: automatic, path: '/usuarios', text: 'Auto Insertar' },
     { icon: edit, path: '#', text: 'Editar Usuarios' },
   ];
   const historiasClinicas = [
@@ -60,8 +59,8 @@ const Sidebar = () => {
 
   const logout = () => {
     signOut();
-    sessionStorage.removeItem('idUsuario')
-    sessionStorage.removeItem('rolUsuario')
+    sessionStorage.removeItem('ci_usuario')
+    sessionStorage.removeItem('cargo')
     sessionStorage.removeItem('idNombre')
     navigate("/")
 
@@ -76,12 +75,12 @@ const Sidebar = () => {
           <ul className='barra__navegacion'>
             <h5>MENU</h5>
 
-            {role == 'DOCTOR' && (
+            {role == 'estudiante' && (
               <li>
                 <Dropdown title="Tutores" links={padres} icon={parent}/>
               </li>
             )}
-            {role == 'DOCTOR' && (
+            {role == 'estudiante' && (
               <li>
                 <Dropdown title="Usuarios" links={estudiante} icon={student} />
               </li>

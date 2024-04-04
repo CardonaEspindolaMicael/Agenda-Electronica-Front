@@ -1,7 +1,8 @@
 import React from 'react'
 import Header from '../../components/HEADER/header'
-import Sidebar from '../../components/SIDEBAR/sidebar'
+
 import './_StyleDashboard.css'
+import Sidebar from '../../components/sidebar/sidebar'
 
 const Dashboard = ({Contenido}) => {
   return (

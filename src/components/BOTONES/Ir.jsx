@@ -1,5 +1,5 @@
 import {  useNavigate } from "react-router-dom";
-
+import editar from '/editar-button.svg'
 
 export const IrButton = ({
   navigateTo = "/",
@@ -14,17 +14,17 @@ export const IrButton = ({
       type="button" className="btn btn-secondary">
       <img
         style={{ height: '25px', width: '25px' }}
-        src="" alt="" />
+        src={editar} alt="" />
     </button>
   ) : (
 
     <button
-      style={{ height: '35px' }}
+      style={{ height: '35px',margin:'0px' }}
       onClick={() => navigate(navigateTo, { state: { objeto: object, identificador: identificador } })}
       type="button" className="btn btn-secondary">
       <img
-        style={{ height: '25px', width: '25px' }}
-        src="" alt="" />
+        style={{ height: '25px', width: '25px',paddingBottom:'5px' }}
+        src={editar} alt="" />
     </button>
   );
 };
