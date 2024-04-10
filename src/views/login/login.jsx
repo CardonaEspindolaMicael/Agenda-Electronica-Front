@@ -39,7 +39,7 @@ export const Login = () => {
       }
   
      
-      window.location.href = "/dashboard";
+      window.location.href = "/";
     } catch (error) {
 
       alert(error.response.data.message)

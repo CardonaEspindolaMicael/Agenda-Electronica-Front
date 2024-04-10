@@ -11,7 +11,7 @@ const Pagination = ({ itemsPerPage, totalItems, paginate }) => {
 
   return (
     <nav>
-      <ul class="pagination justify-content-center">
+      <ul className="pagination justify-content-center">
         <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
           <button className='page-link' onClick={() => {
             setCurrentPage(prevPage => prevPage - 1);

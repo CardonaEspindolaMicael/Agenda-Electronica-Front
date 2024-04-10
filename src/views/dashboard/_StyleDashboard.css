@@ -12,19 +12,20 @@
   }
   
   section{
+
     grid-area: section;
-    background-color: #ffffff;
+
   }
   
-  
+
   .container{
+    position: absolute;
     display: grid;
-    gap: 0px 15px;
-    min-height: 100%; 
+    gap: 0px 18px;
     min-width: 100%;
     grid-template: 
-    " sidebar header" 70px
-    " sidebar section"auto/250px
+    " sidebar header" 50px
+    " sidebar section"auto/210px
   }
   
   

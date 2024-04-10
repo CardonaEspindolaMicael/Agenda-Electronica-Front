@@ -32,37 +32,18 @@ const Sidebar = () => {
     { icon: automatic, path: '/usuarios', text: 'Auto Insertar' },
     { icon: edit, path: '#', text: 'Editar Usuarios' },
   ];
-  const historiasClinicas = [
-    { icon: "", path: '/historias', text: 'Historiales' },
-    { icon: "", path: '#', text: 'Planes de T.' },
-    { icon: "", path: '#', text: 'Procedimientos' },
+  const comunicados = [
+
+    { icon: automatic, path: '/comunicado', text: 'Auto Insertar' },
   ];
-  const pagos = [
-    { icon: "", path: '#', text: 'Registrar Pago' },
-    { icon: "", path: '#', text: 'Recibos' },
-  ];
-  const consultas = [
-    { icon: "", path: '/consulta', text: 'Consultas' },
-    { icon: "", path: '#', text: 'Proforma' },
-  ];
-  const servicios = [
-    { icon:"", path: '/servicio', text: 'Servicios' },
-    { icon: "", path: '/Tratamientos', text: 'Tratamientos' },
-  ];
-  const usuarios = [
-    { icon: "", path: '/usuarios', text: 'Usuarios' },
-    { icon: "", path: '#', text: 'Contraceñas' },
-  ];
-  const miCuenta = [
-    { icon: "", path: '/miCuenta', text: 'Mi Cuenta' },
-  ];
+
 
   const logout = () => {
     signOut();
     sessionStorage.removeItem('ci_usuario')
     sessionStorage.removeItem('cargo')
     sessionStorage.removeItem('idNombre')
-    navigate("/")
+    navigate("/login")
 
   }
   return (
@@ -75,30 +56,36 @@ const Sidebar = () => {
           <ul className='barra__navegacion'>
             <h5>MENU</h5>
 
-            {role == 'estudiante' && (
+            {role == 'administrador' && (
               <li>
                 <Dropdown title="Tutores" links={padres} icon={parent}/>
               </li>
             )}
-            {role == 'estudiante' && (
+            {role == 'administrador' && (
               <li>
                 <Dropdown title="Usuarios" links={estudiante} icon={student} />
               </li>
             )}
+             {role == 'administrador' && (
+              <li>
+                <Dropdown title="Comunicado" links={comunicados} icon={announcement} />
+              </li>
+            )}
+
 
             {role == 'ADMIN' && (
               <li>
-                <Dropdown title="Servicios" links={servicios} icon={""} />
+               
               </li>
             )}
             {role == 'ADMIN' && (
               <li>
-                <Dropdown title="Herramientas" links={herramientas} icon={""} />
+                
               </li>
             )}
             {role == 'ADMIN' && (
               <li>
-                <Dropdown title="Usuarios" links={usuarios} icon={""} />
+                
               </li>
             )}
 

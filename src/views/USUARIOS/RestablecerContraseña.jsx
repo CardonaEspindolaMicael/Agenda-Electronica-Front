@@ -11,9 +11,9 @@ const RestablecerContraceña = () => {
     const [showError, setShowError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const location = useLocation();
-    const navigate = useNavigate();
     const miEstado = location.state;
-    const dataToUpdate = miEstado.objeto;
+     const navigate = useNavigate();
+     const dataToUpdate = miEstado.objeto;
     const nombreDoctor = dataToUpdate.nombre;
     const fetchUsers = async (values) => {
         try {

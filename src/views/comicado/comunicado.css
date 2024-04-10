@@ -1,0 +1,55 @@
+.documents >video{
+  width: 55%;
+  height: auto;
+  
+}
+.documents >img{
+  width: 25%;
+  height: auto;
+  
+}
+.nombre_y_cargo{
+  font-size: small;
+  display: flex;
+  flex-direction: row;
+  justify-content: center; 
+}
+
+.documents >embed{
+
+  height: 450px;
+  width: 100%;
+  
+}
+.filtros{
+  display: flex;
+  gap: 20px;
+}
+.comunicados__features{
+display: flex;
+flex-direction: column;
+gap: 25px;
+}
+
+audio {
+  width: 100%;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+audio::-webkit-media-controls-panel {
+  background-color: #f8f9fa;
+}
+
+audio::-webkit-media-controls-play-button,
+audio::-webkit-media-controls-volume-slider-container,
+audio::-webkit-media-controls-mute-button,
+audio::-webkit-media-controls-timeline-container,
+audio::-webkit-media-controls-current-time-display,
+audio::-webkit-media-controls-time-remaining-display {
+  color: #495057;
+}
+
