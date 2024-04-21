@@ -1,5 +1,5 @@
 import React from 'react'
-import {  useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import useSignOut from 'react-auth-kit/hooks/useSignOut';
 import Dropdown from '../DROPDOWN/Dropdown';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -11,6 +11,8 @@ import edit from '/editar.svg'
 import announcement from '/release.svg'
 import log_out from '/log_out.svg'
 import automatic from '/auto.svg'
+import teacher from '/teacher.svg'
+import visto from '/seem.svg'
 /*ICONOS*/
 
 
@@ -24,7 +26,7 @@ const Sidebar = () => {
   const navigate = useNavigate();
 
   const padres = [
-    { icon: automatic, path: '#', text: 'Auto Insertar' },
+    { icon: automatic, path: '/tutores', text: 'Auto Insertar' },
     { icon: edit, path: '#', text: 'Editar Tutor' }
   ];
   const estudiante = [
@@ -34,7 +36,11 @@ const Sidebar = () => {
   ];
   const comunicados = [
 
-    { icon: automatic, path: '/comunicado', text: 'Auto Insertar' },
+    { icon: visto, path: 'vistosComunicado', text: 'Vistos' },
+  ];
+  const profesores = [
+
+    { icon: automatic, path: '/profesores', text: 'Auto Insertar' },
   ];
 
 
@@ -58,34 +64,23 @@ const Sidebar = () => {
 
             {role == 'administrador' && (
               <li>
-                <Dropdown title="Tutores" links={padres} icon={parent}/>
+                <Dropdown title="Estudiantes" links={estudiante} icon={student} />
+              </li>
+            )}
+            {role == 'administrador' && (
+
+              <li>
+                <Dropdown title="Tutores" links={padres} icon={parent} />
               </li>
             )}
             {role == 'administrador' && (
               <li>
-                <Dropdown title="Usuarios" links={estudiante} icon={student} />
+                <Dropdown title="Profesores" links={profesores} icon={teacher} />
               </li>
             )}
-             {role == 'administrador' && (
+            {role == 'administrador' && (
               <li>
                 <Dropdown title="Comunicado" links={comunicados} icon={announcement} />
-              </li>
-            )}
-
-
-            {role == 'ADMIN' && (
-              <li>
-               
-              </li>
-            )}
-            {role == 'ADMIN' && (
-              <li>
-                
-              </li>
-            )}
-            {role == 'ADMIN' && (
-              <li>
-                
               </li>
             )}
 

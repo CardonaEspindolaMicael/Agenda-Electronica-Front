@@ -5,19 +5,18 @@ import NotFound from "./components/NOTFOUND/notFound"
 import AuthProvider from "react-auth-kit/AuthProvider"
 import createStore from "react-auth-kit/createStore"
 import AuthOutlet from '@auth-kit/react-router/AuthOutlet'
-
-
-
-import Paciente from "./views/PACIENTES/Paciente"
-import NuevoPaciente from "./views/PACIENTES/NuevoPaciente"
-import ActualizarPaciente from "./views/PACIENTES/ActualizarPaciente"
-import MiCuenta from "./views/MI_CUENTA/Cuenta"
-import CambiarPass from "./views/MI_CUENTA/CambiarPass"
 import Usuarios from "./views/USUARIOS/Usuarios"
 import NuevoUsuario from "./views/USUARIOS/NuevoUsuario"
 import RestablecerContraceña from "./views/USUARIOS/RestablecerContraseña"
 import Login from "./views/login/login"
 import Comunicado from "./views/comicado/comunicado"
+
+import RestablecerContraseñaTutor from "./views/tutores/RestablecerContraseñaTutor"
+import NuevoUsuarioTutor from "./views/tutores/NuevoUsuarioTutor"
+import Profesor from "./views/profesores/Profesor"
+import Tutores from "./views/tutores/Tutores"
+import VistosComunicado from "./views/vistos/VistosComunicado"
+import NuevoProfesor from "./views/profesores/NuevoProfesor"
 
 
 
@@ -41,17 +40,19 @@ function App() {
         <Routes>
           <Route element={<AuthOutlet fallbackPath='/login' />}>
           <Route path="/" element={<Dashboard />}>
-              <Route index element={<Usuarios />} />
+              
               <Route path="usuarios" element={<Usuarios />} />
               <Route path="nuevoUsuario" element={<NuevoUsuario />} />
+              <Route path="nuevoUsuarioProfesor" element={<NuevoProfesor />} />
               <Route path="restablecerContraseña" element={<RestablecerContraceña />} />
               <Route path="comunicado" element={<Comunicado/>}/>
+              <Route path="vistosComunicado" element={<VistosComunicado/>}/>
+             <Route path="tutores" element={<Tutores/>}/>
+             <Route path="restablecerContraseñaTutor" element={<RestablecerContraseñaTutor/>}/>
+             <Route path="NuevoUsuarioTutor" element={<NuevoUsuarioTutor/>}/>
+             <Route path="profesores" element={<Profesor/>}/>
             </Route>
-
           </Route>
-
-
-
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<NotFound />} />
 

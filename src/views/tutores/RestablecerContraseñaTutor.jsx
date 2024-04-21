@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import CancelButton from '../../components/BOTONES/Cancelar';
 import Notification from '../../components/ALERT/Notification';
 
-const RestablecerContraceña = () => {
+const RestablecerContraseñaTutor = () => {
 
     const [showSuccess, setShowSuccess] = useState(false);
     const [showError, setShowError] = useState(false);
@@ -14,11 +14,12 @@ const RestablecerContraceña = () => {
     const miEstado = location.state;
      const navigate = useNavigate();
      const dataToUpdate = miEstado.objeto;
-    const nombreDoctor = dataToUpdate.nombre;
+    const tutor = dataToUpdate.nombre;
+
     const fetchUsers = async (values) => {
         try {
             
-            await ApiRequests.putCommon(`/usuario/cambiarClaveAdmin/${dataToUpdate.ci}`, values);
+            await ApiRequests.putCommon(`/usuario/cambiarClaveAdminTutor/${dataToUpdate.ci}`, values);
             console.log(dataToUpdate.ci)
             setShowSuccess(true);  // Muestra mensaje de éxito
             setTimeout(() => {
@@ -83,7 +84,7 @@ const RestablecerContraceña = () => {
                     id="nombreDoctor"
                     name="nombreDoctor"
                     type="text"
-                   value={nombreDoctor}
+                   value={tutor}
                     className="form-control "
                     disabled
                 />
@@ -109,5 +110,5 @@ const RestablecerContraceña = () => {
     );
 };
 
-export default RestablecerContraceña;
+export default RestablecerContraseñaTutor;
 

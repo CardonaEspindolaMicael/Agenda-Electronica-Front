@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import DeleteButton from '../../components/BOTONES/Eliminar';
-import UpdateButton from '../../components/BOTONES/Actualizar';
 import IrButton from '../../components/BOTONES/Ir';
 import { ApiRequests } from '../../api/ApiRequests';
 import NewButton from '../../components/BOTONES/New';
 import SearchFilter from '../../components/OTHER/SearchFilter';
 import Pagination from '../../components/OTHER/Pagination';
 
-const Usuarios = () => {
+const Tutores = () => {
 
   const [data, setData] = useState([]);
   const [borro, setBorro] = useState(false);
@@ -19,7 +17,7 @@ const Usuarios = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await ApiRequests.getCommon("/usuario");
+        const response = await ApiRequests.getCommon("/usuario/tutores");
         setData(response)
       } catch (error) {
         console.log(error);
@@ -55,7 +53,7 @@ const Usuarios = () => {
     console.log(obtenerExito)
     formData.append('excel', obtenerExito); // Append the first file
     try {
-      const response = await ApiRequests.postCommon("/usuario/multiRegistro", formData);
+      const response = await ApiRequests.postCommon("/usuario/registrarTutores", formData);
       setBorro(true)
     } catch (error) {
       alert('Error encontrado verificar la integridad de su excel')
@@ -65,7 +63,7 @@ const Usuarios = () => {
 
   return (
     <div className="row" style={{ margin: '20px 50px 0 50px' }}>
-      <legend>Estudiante</legend>
+      <legend>Tutores</legend>
       <hr className="border border-primary border-2 opacity-50"></hr>
       <div className="grid gap-0 row-gap-3">
         <input className="form-control form-control-lg " id="excel" name='excel' type="file" onChange={(e) => {
@@ -78,7 +76,7 @@ const Usuarios = () => {
 
       </div>
 
-      <SearchFilter value={search} onChange={searcher} placeholder='INGRESE EL CARNET DEL ESTUDIANTE ....' />
+      <SearchFilter value={search} onChange={searcher} placeholder='INGRESE EL CARNET TUTOR ....' />
       <table className="table text-start table-dark table-hover mt-3">
         <thead>
           <tr>
@@ -86,12 +84,8 @@ const Usuarios = () => {
             <th>Nombre</th>
             <th>Apellido</th>
             <th>Telefono</th>
-            <th>Curso</th>
             <td>
-              Cambiar contraseña
-            </td>
-            <td>
-              Enviar Comunicado
+              cambiar contraseña
             </td>
           </tr>
         </thead>
@@ -104,17 +98,9 @@ const Usuarios = () => {
                 <td>{Usuario.nombre}</td>
                 <td>{Usuario.apellidos}</td>
                 <td>{Usuario.telefono}</td>
-                <td>{`${Usuario.grado} ${Usuario.paralelo}`}</td>
                 <td>
                   <IrButton
-                    navigateTo='/restablecerContraseña'
-                    object={Usuario}
-                    identificador="1"
-                  />
-                </td>
-                <td>
-                <IrButton
-                    navigateTo='/comunicado'
+                    navigateTo='/restablecerContraseñaTutor'
                     object={Usuario}
                     identificador="1"
                   />
@@ -125,8 +111,8 @@ const Usuarios = () => {
         </tbody>
       </table>
       <Pagination itemsPerPage={itemsPerPage} totalItems={results.length} paginate={paginate} />
-      <NewButton titulo='Nuevo Estudiante' navigateTo='/nuevoUsuario' />
+      <NewButton titulo='Nuevo Tutor' navigateTo='/nuevoUsuarioTutor' />
     </div>
   );
 }
-export default Usuarios
+export default Tutores

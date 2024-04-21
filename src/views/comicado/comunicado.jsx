@@ -5,18 +5,19 @@ import { useFormik } from 'formik';
 import { v4 } from "uuid";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ApiRequests } from '../../api/ApiRequests';
+import CancelButton from '../../components/BOTONES/Cancelar';
 
 const Comunicado = () => {
   const [file, setFile] = useState();
   const [preview, setPreview] = useState();
-  const [url, setUrl] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const location = useLocation();
   const miEstado = location.state;
   const dataToUpdate = miEstado.objeto;
   const ci_usuario = dataToUpdate.ci;
   const nombreUsuario=dataToUpdate.nombre;
-  const rolUsuario=dataToUpdate.cargo;
   const ci_administrador = sessionStorage.getItem('ci_usuario');
 
   /*********************************************************************** */
@@ -24,9 +25,14 @@ const Comunicado = () => {
   const postComunicado = async (values) => {
     try {
       await ApiRequests.postCommon(`/comunicado`, values);
+      setTimeout(() => {
+        navigate(-1); 
+      }, 500);
     } catch (error) {
       console.log(error);
-
+      setTimeout(() => {
+        navigate(-1); 
+      }, 500);
     }
   }
 
@@ -35,7 +41,7 @@ const Comunicado = () => {
   const handleChange = (e) => {
     setFile(e.target.files[0]);
     setPreview(URL.createObjectURL(e.target.files[0]));
-    console.log('hola mundip')
+  
   };
 
 
@@ -44,7 +50,7 @@ const Comunicado = () => {
       id_comunicado:v4(),
       ci_usuario: ci_usuario,
       descripcion: "",
-      url: url,
+      url: "",
       ci_administrador: ci_administrador,
     },
     onSubmit: async values => {
@@ -52,10 +58,20 @@ const Comunicado = () => {
         alert('Verifique si envio un documento')
         return;
       }
-      const result = await uploadFile(file);
-      alert('El archivo se subió correctamente');
-      values.url = result; 
-      postComunicado(values);
+      try {
+        setLoading(true);
+        const tipoDato=(file.type).split('/')[1]
+      
+       const result = await uploadFile(file,tipoDato);
+        setLoading(false);
+        alert('Documento enviado con exito. Redireccionando...')
+        values.url = result; 
+        postComunicado(values);
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
+      }
+
     },
   });
   
@@ -67,7 +83,7 @@ const Comunicado = () => {
   
       
       <hr className="border border-primary border-2 opacity-50"></hr>
-      {nombreUsuario && <span className='nombre_y_cargo'> <h3>{rolUsuario}:</h3> <h3>{nombreUsuario}</h3></span>}
+      {nombreUsuario && <span className='nombre_y_cargo'> <h3>Nombre:</h3> <h3>{nombreUsuario}</h3></span>}
       <div className="grid mx-auto p-5 comunicados__features">
         <input
           className="form-control form-control-lg"
@@ -78,7 +94,7 @@ const Comunicado = () => {
           
         />
         <div className="mb-3">
-          <textarea className="form-control" id="exampleFormControlTextarea1" rows="2" placeholder='Descripcion....'
+          <textarea className="form-control" id="exampleFormControlTextarea1" rows="2" placeholder='Descripcion....' disabled={loading}
             {...formik.getFieldProps('descripcion')}
             required
           ></textarea>
@@ -96,12 +112,19 @@ const Comunicado = () => {
             {/* Agrega aquí más previsualizaciones para otros tipos de archivos según sea necesario */}
           </div>
         )}
+        <div style={{display:'flex', justifyContent:'space-evenly'}}>
+
+        <CancelButton titulo='Cancelar' navigateTo='back'/>
         <button
           type="submit"
-          className="btn btn-outline-success"
+          className="btn btn-outline-success col-4 mt-4"
+          disabled={loading}
         >
-          Success
-        </button>
+           {loading ? 'Cargando...' : 'Success'}
+        </button> 
+        </div>
+       
+
       </div>
     </form>
   );

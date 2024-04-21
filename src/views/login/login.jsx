@@ -10,7 +10,6 @@ export const Login = () => {
 
 
   const signIn = useSignIn();
-  const [showResponse, setResponse] = useState();
 
   const onSubmit = async (values) => {
     try {
@@ -18,20 +17,24 @@ export const Login = () => {
         import.meta.env.VITE_BASE_URL + "/auth/login",
         values
       );
-      console.log(response.data)
-      setResponse(response)
+      const datos=response.data
+      console.log(datos.data.cargo)
+      if(datos.data.cargo!=='administrador'){
+        alert('Lo siento no tienes los permisos para acceder')
+        return;
+      }
+      alert(datos.message[0])
       signIn({
         auth: {
-          token: response.data.token,
+          token: datos.data.sessionToken,
           type: 'Bearer',
         },
       });
-      sessionStorage.setItem('ci_usuario', response.data.data.ci)
-      
-      sessionStorage.setItem('cargo', response.data.data.cargo)
+      sessionStorage.setItem('ci_usuario', datos.data.ci)
+   
+      sessionStorage.setItem('cargo', datos.data.cargo)
   
-      const nombre = (response.data.data.nombre).split(" ")
-      console.log(nombre[1])
+      const nombre = (datos.data.nombre).split(" ")
       if(nombre[1]){
         sessionStorage.setItem('idNombre', nombre[0] + ' ' + nombre[1])
       }else{
@@ -39,7 +42,8 @@ export const Login = () => {
       }
   
      
-      window.location.href = "/";
+      window.location.href = "/usuarios";
+
     } catch (error) {
 
       alert(error.response.data.message)

@@ -5,8 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import CancelButton from '../../components/BOTONES/Cancelar';
 import Notification from '../../components/ALERT/Notification';
 
-const NuevoUsuario = () => {
-
+const NuevoProfesor = () => {
     const [showSuccess, setShowSuccess] = useState(false);
     const [showError, setShowError] = useState(false);
     const [Roles, setRoles] = useState([]);
@@ -14,7 +13,7 @@ const NuevoUsuario = () => {
 
     const fetchUsers = async (values) => {
         try {
-            await ApiRequests.postCommon('/usuario/registroIndAl', values);
+            await ApiRequests.postCommon('/usuario/registroIndPro', values);
             setShowSuccess(true);  // Muestra mensaje de éxito
             setTimeout(() => {
                 setShowSuccess(false); // Oculta el mensaje después de 3 segundos
@@ -31,7 +30,7 @@ const NuevoUsuario = () => {
     useEffect(() => {
         const fetchRoles = async () => {
             try {
-                const RolesEncontradas = await ApiRequests.getCommon('/rol');
+                const RolesEncontradas = await ApiRequests.getCommon('/materia');
                 setRoles(RolesEncontradas);
             } catch (error) {
                 console.log(error);
@@ -41,18 +40,19 @@ const NuevoUsuario = () => {
     }, [])
     const formik = useFormik({
         initialValues: {
-            ci: "",
-            nombre: "",
-            apellidos: "",
-            correo: "",
-            sexo: "M",
+            ci_profesor:"",
+            nombreA:"",
+            apellidos:"",
+            correo:"",
+            sexo:"M",
             telefono:"",
             gradoA:"",
-            paraleloA:""
+            paraleloA:"",
+            materiaA:"matematicas"
         },
         onSubmit: values => {
-            console.log(values.ci , values.nombre , values.apellidos,values.correo ,values.sexo ,values.telefono,values.gradoA ,values.paraleloA)
-            if (!values.ci || !values.nombre || !values.apellidos || !values.correo || !values.sexo || !values.telefono || !values.gradoA || !values.paraleloA) {
+            console.log(values.ci_profesor, values.nombreA , values.apellidos , values.correo , values.sexo , values.telefono , values.gradoA ,values.paraleloA, values.materiaA);
+            if (!values.ci_profesor || !values.nombreA || !values.apellidos || !values.correo || !values.sexo || !values.telefono || !values.gradoA || !values.paraleloA||!values.materiaA) {
                 alert('Por favor, inserte todos los datos');
             } else {
                 fetchUsers(values);
@@ -68,24 +68,24 @@ const NuevoUsuario = () => {
             <hr className="border border-primary border-2 opacity-50"></hr>
 
             <div className="col-6">
-                <label htmlFor="ci" className="form-label">Carnet</label>
+                <label htmlFor="ci_profesor" className="form-label">Carnet</label>
                 <input
-                    id="ci"
-                    name="ci"
+                    id="ci_profesor"
+                    name="ci_profesor"
                     type="text"
-                    {...formik.getFieldProps('ci')}
+                    {...formik.getFieldProps('ci_profesor')}
                     className="form-control "
                     required
                 />
             </div>
 
             <div className="col-6">
-                <label htmlFor="nombre" className="form-label">Usuario</label>
+                <label htmlFor="nombreA" className="form-label">Usuario</label>
                 <input
-                    id="nombre"
-                    name="nombre"
+                    id="nombreA"
+                    name="nombreA"
                     type="text"
-                    {...formik.getFieldProps('nombre')}
+                    {...formik.getFieldProps('nombreA')}
                     className="form-control "
                     required
                 />
@@ -160,15 +160,33 @@ const NuevoUsuario = () => {
                 />
             </div>
 
+            <div className="col-3">
+                <label htmlFor="materiaA" className="form-label">Rol</label>
+                <select
+                    id="materiaA"
+                    name="materiaA"
+                    {...formik.getFieldProps('materiaA')}
+                    className="form-control custom-select"
+                    required
+                >
+                    {
+                        Roles.map((rol) => (
+                            <option key={rol.id} value={rol.nombre}>{rol.nombre}</option>
+                        ))
+                    }
+                </select>
+            </div>
 
 
 
 
-            <div class="row justify-content-evenly">
+
+            <div className="row justify-content-evenly">
                 <CancelButton titulo='Cancelar' navigateTo='back' />
                 <button type="submit" className="btn btn-success col-4 mt-4">GUARDAR</button>
             </div>
         </form>
     );
 }
-export default NuevoUsuario;
+export default NuevoProfesor;
+   

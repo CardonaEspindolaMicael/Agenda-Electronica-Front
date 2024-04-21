@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import CancelButton from '../../components/BOTONES/Cancelar';
 import Notification from '../../components/ALERT/Notification';
 
-const NuevoUsuario = () => {
+const NuevoUsuarioTutor = () => {
 
     const [showSuccess, setShowSuccess] = useState(false);
     const [showError, setShowError] = useState(false);
@@ -14,7 +14,7 @@ const NuevoUsuario = () => {
 
     const fetchUsers = async (values) => {
         try {
-            await ApiRequests.postCommon('/usuario/registroIndAl', values);
+            await ApiRequests.postCommon('/usuario/registroTutor', values);
             setShowSuccess(true);  // Muestra mensaje de éxito
             setTimeout(() => {
                 setShowSuccess(false); // Oculta el mensaje después de 3 segundos
@@ -39,27 +39,20 @@ const NuevoUsuario = () => {
         }
         fetchRoles();
     }, [])
+
     const formik = useFormik({
         initialValues: {
-            ci: "",
-            nombre: "",
-            apellidos: "",
-            correo: "",
-            sexo: "M",
+            ci:"",
+            nombre:"",
+            apellidos:"",
+            contrasena:"",
             telefono:"",
-            gradoA:"",
-            paraleloA:""
         },
         onSubmit: values => {
-            console.log(values.ci , values.nombre , values.apellidos,values.correo ,values.sexo ,values.telefono,values.gradoA ,values.paraleloA)
-            if (!values.ci || !values.nombre || !values.apellidos || !values.correo || !values.sexo || !values.telefono || !values.gradoA || !values.paraleloA) {
-                alert('Por favor, inserte todos los datos');
-            } else {
-                fetchUsers(values);
-            }
+            fetchUsers(values);
         },
     });
-    
+
     return (
         <form style={{ margin: '20px 50px 0 50px' }} className="row  mt-6 g-2 needs-validation " noValidate onSubmitCapture={formik.handleSubmit}>
             {showSuccess && <Notification message="¡Operación exitosa!" isSuccess={true} />}
@@ -102,31 +95,6 @@ const NuevoUsuario = () => {
                 />
             </div>
             <div className="col-6">
-                <label htmlFor="correo" className="form-label">Correo</label>
-                <input
-                    id="correo"
-                    name="correo"
-                    type="email"
-                    {...formik.getFieldProps('correo')}
-                    className="form-control "
-                    required
-                />
-            </div>
-            <div className="col-6">
-                <label htmlFor="sexo" className="form-label">Sexo</label>
-                <select
-                    id="sexo"
-                    name="sexo"
-                    {...formik.getFieldProps('sexo')}
-                    className="form-control custom-select"
-                    required
-                >
-                    <option value={'M'}>Masculino</option>
-                    <option value={'F'}>Femenino</option>
-
-                </select>
-            </div>
-            <div className="col-6">
                 <label htmlFor="telefono" className="form-label">Telefono</label>
                 <input
                     id="telefono"
@@ -137,32 +105,17 @@ const NuevoUsuario = () => {
                     required
                 />
             </div>
-            <div className="col-2">
-                <label htmlFor="gradoA" className="form-label">Curso: </label>
+            <div className="col-6">
+                <label htmlFor="contrasena" className="form-label">Contraseña</label>
                 <input
-                    id="gradoA"
-                    name="gradoA"
-                    type="number"
-                    {...formik.getFieldProps('gradoA')}
+                    id="contrasena"
+                    name="contrasena"
+                    type="Password"
+                    {...formik.getFieldProps('contrasena')}
                     className="form-control "
                     required
                 />
             </div>
-            <div className="col-2">
-            <label htmlFor="paraleloA" className="form-label">paralelo: </label>
-                <input
-                    id="paraleloA"
-                    name="paraleloA"
-                    type="text"
-                    {...formik.getFieldProps('paraleloA')}
-                    className="form-control "
-                    required
-                />
-            </div>
-
-
-
-
 
             <div class="row justify-content-evenly">
                 <CancelButton titulo='Cancelar' navigateTo='back' />
@@ -171,4 +124,4 @@ const NuevoUsuario = () => {
         </form>
     );
 }
-export default NuevoUsuario;
+export default NuevoUsuarioTutor;
